@@ -3,8 +3,9 @@ const consign = require('consign');
 
 module.exports = function config() {
   const app = express();
-  consign()
+  consign({ cwd: 'app' })
     .include('routes')
+    .then('infra')
     .into(app);
   return app;
 };
