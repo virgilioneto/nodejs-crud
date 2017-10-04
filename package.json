@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/ClaraTersi/nodejs-crud/issues"
   },
-  "homepage": "https://github.com/ClaraTersi/nodejs-crud#readme"
+  "homepage": "https://github.com/ClaraTersi/nodejs-crud#readme",
+  "dependencies": {
+    "express": "^4.16.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
 }
