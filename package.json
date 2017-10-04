@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-crud",
+  "version": "1.0.0",
+  "description": "NodeJS crud application.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClaraTersi/nodejs-crud.git"
+  },
+  "keywords": [
+    "nodejs",
+    "crud"
+  ],
+  "author": "Clara Tersi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClaraTersi/nodejs-crud/issues"
+  },
+  "homepage": "https://github.com/ClaraTersi/nodejs-crud#readme"
+}
