@@ -4,7 +4,7 @@ function createMySQLConnection() {
   return mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'iamroot',
     database: 'nodejs_crud_db',
   });
 }
