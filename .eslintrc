@@ -1,0 +1,22 @@
+{
+    "env": {
+        "node": true,
+        "mocha": true
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "extends": "airbnb",
+    "rules": {
+        "no-const-assign": "warn",
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "no-unreachable": "warn",
+        "no-unused-vars": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn"
+    },
+    "globals": {
+        "mocha": true
+    }
+}
