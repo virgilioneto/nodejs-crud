@@ -22,7 +22,8 @@
   "homepage": "https://github.com/ClaraTersi/nodejs-crud#readme",
   "dependencies": {
     "consign": "^0.1.6",
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "mysql": "^2.14.1"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
