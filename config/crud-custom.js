@@ -3,17 +3,16 @@ const consign = require('consign');
 const bodyParser = require('body-parser');
 
 module.exports = function config() {
-
   const app = express();
 
-  app.use(bodyParser.urlencoded({extended: true}));
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
 
   consign({ cwd: 'app' })
     .include('routes')
     .then('model')
-    .then('infra')
+    // .then('infra')
     .into(app);
-    
+
   return app;
 };
