@@ -2,7 +2,9 @@ const sequelize = require('../infra/sequelize');
 
 const findAll = (cb) => {
   sequelize.connection.sync().then(() => {
-    sequelize.Category.findAll().then((categories) => {
+    sequelize.Category.findAll({
+      attributes: ['id', 'name'],
+    }).then((categories) => {
       cb(JSON.parse(JSON.stringify(categories)));
     });
   });
