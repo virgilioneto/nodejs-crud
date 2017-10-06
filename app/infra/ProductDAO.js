@@ -3,7 +3,11 @@ function ProductDAO(connection) {
 }
 
 ProductDAO.prototype.findAll = function findAll(callback) {
-  this.connection.query('SELECT * FROM products', callback);
+  let sql = 'SELECT p.id, p.name as product, p.description, ' +
+    'GROUP_CONCAT(c.name SEPARATOR ", ") as categories ' +
+    'FROM products p JOIN product_category pc ON p.id = pc.product_id ' +
+    'JOIN categories c ON c.id = pc.category_id GROUP BY p.name ORDER BY p.name';
+  this.connection.query(sql, callback);
 };
 
 ProductDAO.prototype.findById = function findById(id, callback) {
