@@ -1,8 +1,3 @@
-// save product
-// list products
-
-// name, description, picture, category
-
 module.exports = function products(app) {
   app.get('/product', (request, response) => {
     const connection = app.infra.connectionFactory();

@@ -14,6 +14,10 @@ ProductDAO.prototype.findById = function findById(id, callback) {
   this.connection.query('SELECT * FROM products WHERE id = ?', [id], callback);
 };
 
+ProductDAO.prototype.findByName = function findById(name, callback) {
+  this.connection.query('SELECT * FROM products WHERE name = ?', [id], callback);
+};
+
 module.exports = function getProductDAO() {
   return ProductDAO;
 };
