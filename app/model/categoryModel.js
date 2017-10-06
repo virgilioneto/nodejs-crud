@@ -1,13 +1,9 @@
-const CategoryDAO = require('../infra/CategoryDAO');
-const connectionFactory = require('../infra/connectionFactory');
+const categoryDAO = require('../infra/CategoryDAO');
 
 const findAllCategories = (cb) => {
-  const connection = connectionFactory();
-  const categoryDAO = new CategoryDAO(connection);
-  categoryDAO.findAll((error, result) => {
+  categoryDAO.findAll((result) => {
     cb(result);
   });
-  connection.end();
 };
 
 module.exports = {

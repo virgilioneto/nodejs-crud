@@ -21,3 +21,17 @@ ProductDAO.prototype.findByName = function findByName(name, callback) {
 module.exports = function getProductDAO() {
   return ProductDAO;
 };
+
+
+// const findAll = (cb) => {
+//   sequelize.sequelizeConnection.sync().then(() => {
+//     sequelize.Product.findAll({
+//       include: [sequelize.Category],
+//     }).then((products) => {
+//       console.log(JSON.parse(JSON.stringify(products)));
+//       //console.log(products[0].get('name'));
+//       //console.log(products[0].get('categories')[0].get('name'));
+//       cb(JSON.parse(JSON.stringify(products)));
+//     });
+//   });
+// };

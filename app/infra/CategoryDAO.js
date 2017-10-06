@@ -1,19 +1,23 @@
-function CategoryDAO(connection) {
-  this.connection = connection;
-}
+const sequelize = require('../infra/sequelize');
 
-CategoryDAO.prototype.findAll = function findAll(callback) {
-  this.connection.query('SELECT * FROM categories', callback);
+const findAll = (cb) => {
+  sequelize.connection.sync().then(() => {
+    sequelize.Category.findAll().then((categories) => {
+      cb(JSON.parse(JSON.stringify(categories)));
+    });
+  });
 };
 
-CategoryDAO.prototype.findById = function findById(id, callback) {
-  this.connection.query('SELECT * FROM categories WHERE id = ?', [id], callback);
+const findById = (connection, id, cb) => {
+  connection.query('SELECT * FROM categories WHERE id = ?', [id], cb);
 };
 
-CategoryDAO.prototype.save = function save(category, callback) {
-  this.connection.query('INSERT INTO categories SET ?', category, callback);
+const save = (connection, category, cb) => {
+  connection.query('INSERT INTO categories SET ?', category, cb);
 };
 
-module.exports = function getCategoryDAO() {
-  return CategoryDAO;
+module.exports = {
+  findAll,
+  findById,
+  save,
 };

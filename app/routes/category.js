@@ -9,15 +9,6 @@ const findAllCategories = (req, res) => {
 module.exports = (app) => {
   app.get('/category', findAllCategories);
 
-  // app.get('/category', (req, res) => {
-  //   const connection = app.infra.connectionFactory();
-  //   const categoryDAO = new app.infra.CategoryDAO(connection);
-  //   categoryDAO.findAll((error, result) => {
-  //     res.status(200).json(result);
-  //   });
-  //   connection.end();
-  // });
-
   app.post('/category', (req, res) => {
     const connection = app.infra.connectionFactory();
     const categoryDAO = new app.infra.CategoryDAO(connection);
