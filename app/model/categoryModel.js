@@ -6,6 +6,13 @@ const findAllCategories = (cb) => {
   });
 };
 
+const saveCategory = (category, cb) => {
+  categoryDAO.save(category, (result) => {
+    cb(result);
+  });
+};
+
 module.exports = {
   findAllCategories,
+  saveCategory,
 };

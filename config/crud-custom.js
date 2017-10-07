@@ -11,7 +11,6 @@ module.exports = function config() {
   consign({ cwd: 'app' })
     .include('routes')
     .then('model')
-    // .then('infra')
     .into(app);
 
   return app;
