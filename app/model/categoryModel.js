@@ -1,9 +1,15 @@
 const categoryDAO = require('../infra/CategoryDAO');
 
 const findCategories = (name, cb) => {
-  categoryDAO.findAll(name, (result) => {
-    cb(result);
-  });
+  if (name) {
+    categoryDAO.findByParam(name, (result) => {
+      cb(result);
+    });
+  } else {
+    categoryDAO.findAll((result) => {
+      cb(result);
+    });
+  }
 };
 
 const saveCategory = (category, cb) => {

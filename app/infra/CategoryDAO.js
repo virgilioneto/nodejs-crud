@@ -1,6 +1,16 @@
 const sequelize = require('../infra/sequelize');
 
-const findAll = (name, cb) => {
+const findAll = (cb) => {
+  sequelize.connection.sync().then(() => {
+    sequelize.Category.findAll({
+      attributes: ['id', 'name'],
+    }).then((categories) => {
+      cb(JSON.parse(JSON.stringify(categories)));
+    });
+  });
+};
+
+const findByParam = (name, cb) => {
   sequelize.connection.sync().then(() => {
     sequelize.Category.findAll({
       attributes: ['id', 'name'],
@@ -69,4 +79,5 @@ module.exports = {
   save,
   findById,
   deleteById,
+  findByParam,
 };
