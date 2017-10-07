@@ -7,14 +7,21 @@ const findProducts = (req, res) => {
 };
 
 const saveProduct = (req, res) => {
-  productModel.saveProduct((result) => {
-    // product saved
+  const product = {
+    id: req.params.id,
+    name: req.body.name,
+    description: req.body.description,
+    categories: req.body.categories.split(',').map(Number),
+  };
+  productModel.saveProduct(product, (result) => {
+    res.json(result);
   });
-}
+};
 
 module.exports = function products(app) {
   app.get('/product', findProducts);
   app.post('/product', saveProduct);
+  app.post('/product/:id', saveProduct);
 
   app.get('/product/:id', (request, response) => {
     const connection = app.infra.connectionFactory();

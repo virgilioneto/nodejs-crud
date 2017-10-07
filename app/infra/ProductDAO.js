@@ -11,13 +11,34 @@ const findAll = (cb) => {
   });
 };
 
-const save = (name, description, categoryIds, cb) => {
-  sequelize.connection.sync().then(() => sequelize.Product.create({
-    name,
-    description,
-  }).then((savedProduct) => {
-    savedProduct.setCategories(categoryIds);
-  }));
+const save = (product, cb) => {
+  sequelize.Product.findOne({
+    where: {
+      id: product.id,
+    },
+  }).then((products) => {
+    if (products) {
+      sequelize.connection.sync().then(() => sequelize.Product.update({
+        name: product.name,
+        description: product.description,
+      }, {
+        where: {
+          id: product.id,
+        },
+      }).then(() => {
+        products.setCategories(product.categories);
+        cb('Product updated');
+      }));
+    } else {
+      sequelize.connection.sync().then(() => sequelize.Product.create({
+        name: product.name,
+        description: product.description,
+      }).then((savedProduct) => {
+        savedProduct.setCategories(product.categories);
+        cb('Product saved');
+      }));
+    }
+  });
 };
 
 module.exports = {

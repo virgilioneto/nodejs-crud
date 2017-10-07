@@ -12,8 +12,8 @@ const findProducts = (name, cb) => {
   }
 };
 
-const saveProduct = (cb) => {
-  productDAO.save((result) => {
+const saveProduct = (product, cb) => {
+  productDAO.save(product, (result) => {
     cb(result);
   });
 };
@@ -30,4 +30,5 @@ const saveProduct = (cb) => {
 
 module.exports = {
   findProducts,
+  saveProduct,
 };
