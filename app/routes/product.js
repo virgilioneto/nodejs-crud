@@ -24,9 +24,16 @@ const findProductById = (req, res) => {
   });
 };
 
+const deleteProductById = (req, res) => {
+  productModel.deleteProductById(req.params.id, (result) => {
+    res.json(result);
+  });
+};
+
 module.exports = function products(app) {
   app.get('/product', findProducts);
   app.post('/product', saveProduct);
   app.post('/product/:id', saveProduct);
   app.get('/product/:id', findProductById);
+  app.delete('/product/:id', deleteProductById);
 };

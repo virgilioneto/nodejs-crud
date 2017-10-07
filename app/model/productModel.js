@@ -24,8 +24,15 @@ const findProductById = (id, cb) => {
   });
 };
 
+const deleteProductById = (id, cb) => {
+  productDAO.deleteById(id, (result) => {
+    cb(result);
+  });
+};
+
 module.exports = {
   findProducts,
   saveProduct,
   findProductById,
+  deleteProductById,
 };

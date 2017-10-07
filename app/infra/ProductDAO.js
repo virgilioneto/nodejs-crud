@@ -55,10 +55,23 @@ const findById = (id, cb) => {
   });
 };
 
+const deleteById = (id, cb) => {
+  sequelize.connection.sync().then(() => {
+    sequelize.Product.destroy({
+      where: {
+        id,
+      },
+    }).then(() => {
+      cb('Product deleted');
+    });
+  });
+};
+
 module.exports = {
   save,
   findAll,
   findById,
+  deleteById,
 };
 
 // sequelize.sync()
