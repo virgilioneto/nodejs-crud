@@ -4,6 +4,7 @@ const findAll = (cb) => {
   sequelize.connection.sync().then(() => {
     sequelize.Product.findAll({
       attributes: ['id', 'name'],
+      include: [{ model: sequelize.Category, attributes: ['id', 'name'] }],
     }).then((products) => {
       cb(JSON.parse(JSON.stringify(products)));
     });
