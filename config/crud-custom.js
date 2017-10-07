@@ -10,7 +10,7 @@ module.exports = function config() {
 
   consign({ cwd: 'app' })
     .include('routes')
-    .then('model')
+    .then('api')
     .into(app);
 
   return app;

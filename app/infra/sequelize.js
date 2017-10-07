@@ -17,8 +17,14 @@ const Category = connection.define('Category', {
 Product.belongsToMany(Category, { through: 'ProductCategory' });
 Category.belongsToMany(Product, { through: 'ProductCategory' });
 
+const User = connection.define('User', {
+  username: Sequelize.STRING,
+  password: Sequelize.STRING,
+});
+
 module.exports = {
   connection,
   Product,
   Category,
+  User,
 };
