@@ -18,17 +18,14 @@ const saveProduct = (product, cb) => {
   });
 };
 
-
-// const findAllProducts = (cb) => {
-//   const connection = connectionFactory();
-//   const productDAO = new ProductDAO(connection);
-//   productDAO.findAll((error, result) => {
-//     cb(result);
-//   });
-//   connection.end();
-// };
+const findProductById = (id, cb) => {
+  productDAO.findById(id, (result) => {
+    cb(result);
+  });
+};
 
 module.exports = {
   findProducts,
   saveProduct,
+  findProductById,
 };

@@ -18,21 +18,15 @@ const saveProduct = (req, res) => {
   });
 };
 
+const findProductById = (req, res) => {
+  productModel.findProductById(req.params.id, (result) => {
+    res.status(200).json(result);
+  });
+};
+
 module.exports = function products(app) {
   app.get('/product', findProducts);
   app.post('/product', saveProduct);
   app.post('/product/:id', saveProduct);
-
-  app.get('/product/:id', (request, response) => {
-    const connection = app.infra.connectionFactory();
-    const productDAO = new app.infra.ProductDAO(connection);
-    productDAO.findById(request.params.id, (error, result) => {
-      if (error) {
-        response.status(500).send(error);
-      } else {
-        response.status(200).json(result);
-      }
-    });
-    connection.end();
-  });
+  app.get('/product/:id', findProductById);
 };
