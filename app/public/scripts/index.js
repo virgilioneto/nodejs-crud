@@ -51,24 +51,23 @@ $(document).ready(() => {
     ],
   });
 
-  $('#productModal').on('shown.bs.modal', () => {
-    $.ajax({ url: '/category',
-      success(results) {
-        results.forEach((result) => {
-          $('#categoriesMultipleSelect')
-            .append($('<option></option>')
-              .attr('value', result.id)
-              .text(result.name));
-        });
-      },
-    });
-  });
+  // $('#productModal').on('shown.bs.modal', () => {
+  //   $.ajax({ url: '/category',
+  //     success(results) {
+  //       results.forEach((result) => {
+  //         $('#categoriesMultipleSelect')
+  //           .append($('<option></option>')
+  //             .attr('value', result.id)
+  //             .text(result.name));
+  //       });
+  //     },
+  //   });
+  // });
 
   $('#productModal').on('hidden.bs.modal', () => {
     $('#categoriesMultipleSelect').html('');
     $('#products').DataTable().ajax.reload();
   });
-
 
   $('#productModal').on('hidden.bs.modal', () => {
     $('#productName').val('');
@@ -117,7 +116,6 @@ const editProduct = function editProduct(id) {
       selectedCategories.push($(this).val());
     });
     const formData = {
-      // id: $('input[name=productId]').val(),
       name: $('input[name=productName]').val(),
       description: $('textarea[name=productDescription]').val(),
       categories: selectedCategories.join(','),
@@ -140,22 +138,30 @@ const editProduct = function editProduct(id) {
       $('#productName').val(result.name);
       $('#productDescription').val(result.description);
 
+      const categoryArray = new Array();
+      result.Categories.forEach((category) => {
+        categoryArray.push(category.id);
+      });
+
+      $('#categoriesMultipleSelect').html('');
       $.ajax({ url: '/category',
         success(loadCategories) {
           loadCategories.forEach((category) => {
-            $('#categoriesMultipleSelect')
-              .append($('<option></option>')
-                .attr('value', category.id)
-                .text(category.name));
+            if (categoryArray.indexOf(category.id)) {
+              $('#categoriesMultipleSelect')
+                .append($('<option></option>')
+                  .attr('selected', 'selected')
+                  .attr('value', category.id)
+                  .text(category.name));
+            } else {
+              $('#categoriesMultipleSelect')
+                .append($('<option></option>')
+                  .attr('value', category.id)
+                  .text(category.name));
+            }
           });
         },
       });
-      // const categoryArray = new Array();
-      // result.Categories.forEach((category) => {
-      //   categoryArray.push(category.id);
-      // });
-      //
-      // $('#categoriesMultipleSelect').val(categoryArray);
     },
   });
 
