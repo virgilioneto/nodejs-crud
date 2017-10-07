@@ -2,13 +2,30 @@ $(document).ready(() => {
   $('#products').DataTable({
     ajax: {
       url: '/product',
-      dataSrc: '',
+      dataSrc: (products) => {
+        const returnData = new Array();
+        products.forEach((product) => {
+          const categories = new Array();
+          product.Categories.forEach((category) => {
+            categories.push(category.name);
+          });
+          returnData.push({
+            name: product.name,
+            description: product.description,
+            categories: categories.join(', '),
+          });
+        });
+        return returnData;
+      },
+
     },
     columns: [
       { data: 'name' },
       { data: 'description' },
+      { data: 'categories' },
     ],
   });
+
 
   $('#categories').DataTable({
     ajax: {
