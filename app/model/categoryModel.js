@@ -12,7 +12,14 @@ const saveCategory = (category, cb) => {
   });
 };
 
+const findCategoryById = (id, cb) => {
+  categoryDAO.findById(id, (result) => {
+    cb(result);
+  });
+};
+
 module.exports = {
   findAllCategories,
   saveCategory,
+  findCategoryById,
 };

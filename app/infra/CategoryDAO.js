@@ -36,7 +36,21 @@ const save = (category, cb) => {
   });
 };
 
+const findById = (id, cb) => {
+  sequelize.connection.sync().then(() => {
+    sequelize.Category.findOne({
+      where: {
+        id,
+      },
+      attributes: ['id', 'name'],
+    }).then((category) => {
+      cb(JSON.parse(JSON.stringify(category)));
+    });
+  });
+};
+
 module.exports = {
   findAll,
   save,
+  findById,
 };
