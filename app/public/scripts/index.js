@@ -34,6 +34,7 @@ $(document).ready(() => {
 
   $('#productModal').on('hidden.bs.modal', () => {
     $('#categoriesMultipleSelect').html('');
+    $('#products').DataTable().ajax.reload();
   });
 
   $('#productForm').submit((event) => {
@@ -52,6 +53,30 @@ $(document).ready(() => {
       data: formData,
       dataType: 'json',
       encode: true,
+    });
+    event.preventDefault();
+  });
+
+  $('#categoryModal').on('hidden.bs.modal', () => {
+    $('#categoriesMultipleSelect').html('');
+    $('#categories').DataTable().ajax.reload();
+  });
+
+  $('#categoryForm').submit((event) => {
+    const formData = {
+      name: $('input[name=categoryName]').val(),
+    };
+    $.ajax({
+      type: 'POST',
+      url: '/category',
+      data: formData,
+      dataType: 'json',
+      encode: true,
+      success(data, textStatus, jqXHR) {
+        $('#categoryModal').modal('toggle');
+      },
+      error(jqXHR, textStatus, errorThrown) {
+      },
     });
     event.preventDefault();
   });
