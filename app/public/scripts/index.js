@@ -60,7 +60,8 @@ $(document).ready(() => {
               .attr('value', result.id)
               .text(result.name));
         });
-      } });
+      },
+    });
   });
 
   $('#productModal').on('hidden.bs.modal', () => {
@@ -113,3 +114,60 @@ $(document).ready(() => {
     event.preventDefault();
   });
 });
+
+
+const editProduct = function editProduct(id) {
+  // $.ajax({ url: `/product/${id}`,
+  //   success(result) {
+  //     $('#productName').val(result.name);
+  //     $('#productDescription').val(result.description);
+  //
+  //     $.ajax({ url: '/category',
+  //       success(loadCategories) {
+  //         loadCategories.forEach((category) => {
+  //           $('#categoriesMultipleSelect')
+  //             .append($('<option></option>')
+  //               .attr('value', category.id)
+  //               .text(category.name));
+  //         });
+  //       },
+  //     });
+  //
+  //
+  //     const categoryArray = new Array();
+  //     result.Categories.forEach((category) => {
+  //       categoryArray.push(category.id);
+  //     });
+  //
+  //     $('#categoriesMultipleSelect').val(categoryArray);
+  //     $('#categoriesMultipleSelect').multiselect('refresh');
+  //   },
+  // });
+  // $('#productModal').modal('toggle');
+
+  // TODO: Load multiselect
+};
+
+const deleteProduct = function deleteProduct(id) {
+  $.ajax({
+    url: `/product/${id}`,
+    type: 'DELETE',
+    success() {
+      $('#products').DataTable().ajax.reload();
+    },
+  });
+};
+
+const editCategory = function editCategory(id) {
+
+};
+
+const deleteCategory = function deleteCategory(id) {
+  $.ajax({
+    url: `/category/${id}`,
+    type: 'DELETE',
+    success() {
+      $('#categories').DataTable().ajax.reload();
+    },
+  });
+};

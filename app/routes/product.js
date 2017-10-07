@@ -34,7 +34,7 @@ const deleteProductById = (req, res) => {
 module.exports = function products(app) {
   app.get('/product', findProducts);
   app.post('/product', saveProduct);
-  app.post('/product/:id', saveProduct);
+  app.put('/product/:id', saveProduct);
   app.get('/product/:id', findProductById);
   app.delete('/product/:id', deleteProductById);
 };

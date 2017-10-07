@@ -32,6 +32,6 @@ module.exports = (app) => {
   app.get('/category', findCategories);
   app.post('/category', saveCategory);
   app.get('/category/:id', findCategoryById);
-  app.post('/category/:id', saveCategory);
+  app.put('/category/:id', saveCategory);
   app.delete('/category/:id', deleteCategoryById);
 };

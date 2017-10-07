@@ -60,7 +60,7 @@ const findById = (id, cb) => {
       where: {
         id,
       },
-      attributes: ['id', 'name'],
+      attributes: ['id', 'name', 'description'],
       include: [{ model: sequelize.Category, attributes: ['id', 'name'] }],
     }).then((product) => {
       cb(product);
