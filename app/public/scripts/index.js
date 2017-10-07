@@ -69,13 +69,29 @@ $(document).ready(() => {
     $('#products').DataTable().ajax.reload();
   });
 
-  $('#productForm').submit((event) => {
+
+  $('#productModal').on('hidden.bs.modal', () => {
+    $('#productName').val('');
+    $('#productDescription').val('');
+    $('#categoriesMultipleSelect').html('');
+    $('#products').DataTable().ajax.reload();
+  });
+
+  $('#categoryModal').on('hidden.bs.modal', () => {
+    $('#categoryName').val('');
+    $('#categories').DataTable().ajax.reload();
+  });
+});
+
+const newProduct = function newProduct() {
+  $('#saveProduct').unbind('click');
+  $('#saveProduct').click(() => {
     const selectedCategories = [];
     $('#categoriesMultipleSelect :selected').each(function () {
       selectedCategories.push($(this).val());
     });
     const formData = {
-      id: $('input[name=productId]').val(),
+      // id: $('input[name=productId]').val(),
       name: $('input[name=productName]').val(),
       description: $('textarea[name=productDescription]').val(),
       categories: selectedCategories.join(','),
@@ -86,16 +102,79 @@ $(document).ready(() => {
       data: formData,
       dataType: 'json',
       encode: true,
+      success() {
+        $('#productModal').modal('toggle');
+      },
     });
-    event.preventDefault();
+  });
+};
+
+const editProduct = function editProduct(id) {
+  $('#saveProduct').unbind('click');
+  $('#saveProduct').click(() => {
+    const selectedCategories = [];
+    $('#categoriesMultipleSelect :selected').each(function () {
+      selectedCategories.push($(this).val());
+    });
+    const formData = {
+      // id: $('input[name=productId]').val(),
+      name: $('input[name=productName]').val(),
+      description: $('textarea[name=productDescription]').val(),
+      categories: selectedCategories.join(','),
+    };
+    $.ajax({
+      type: 'PUT',
+      url: `/product/${id}`,
+      data: formData,
+      dataType: 'json',
+      encode: true,
+      success() {
+        $('#productModal').modal('toggle');
+      },
+    });
   });
 
-  $('#categoryModal').on('hidden.bs.modal', () => {
-    $('#categoriesMultipleSelect').html('');
-    $('#categories').DataTable().ajax.reload();
+  $.ajax({
+    url: `/product/${id}`,
+    success(result) {
+      $('#productName').val(result.name);
+      $('#productDescription').val(result.description);
+
+      $.ajax({ url: '/category',
+        success(loadCategories) {
+          loadCategories.forEach((category) => {
+            $('#categoriesMultipleSelect')
+              .append($('<option></option>')
+                .attr('value', category.id)
+                .text(category.name));
+          });
+        },
+      });
+      // const categoryArray = new Array();
+      // result.Categories.forEach((category) => {
+      //   categoryArray.push(category.id);
+      // });
+      //
+      // $('#categoriesMultipleSelect').val(categoryArray);
+    },
   });
 
-  $('#categoryForm').submit((event) => {
+  $('#productModal').modal('toggle');
+};
+
+const deleteProduct = function deleteProduct(id) {
+  $.ajax({
+    url: `/product/${id}`,
+    type: 'DELETE',
+    success() {
+      $('#products').DataTable().ajax.reload();
+    },
+  });
+};
+
+const newCategory = function newCategory() {
+  $('#saveCategory').unbind('click');
+  $('#saveCategory').click(() => {
     const formData = {
       name: $('input[name=categoryName]').val(),
     };
@@ -111,55 +190,37 @@ $(document).ready(() => {
       error(jqXHR, textStatus, errorThrown) {
       },
     });
-    event.preventDefault();
-  });
-});
-
-
-const editProduct = function editProduct(id) {
-  // $.ajax({ url: `/product/${id}`,
-  //   success(result) {
-  //     $('#productName').val(result.name);
-  //     $('#productDescription').val(result.description);
-  //
-  //     $.ajax({ url: '/category',
-  //       success(loadCategories) {
-  //         loadCategories.forEach((category) => {
-  //           $('#categoriesMultipleSelect')
-  //             .append($('<option></option>')
-  //               .attr('value', category.id)
-  //               .text(category.name));
-  //         });
-  //       },
-  //     });
-  //
-  //
-  //     const categoryArray = new Array();
-  //     result.Categories.forEach((category) => {
-  //       categoryArray.push(category.id);
-  //     });
-  //
-  //     $('#categoriesMultipleSelect').val(categoryArray);
-  //     $('#categoriesMultipleSelect').multiselect('refresh');
-  //   },
-  // });
-  // $('#productModal').modal('toggle');
-
-  // TODO: Load multiselect
-};
-
-const deleteProduct = function deleteProduct(id) {
-  $.ajax({
-    url: `/product/${id}`,
-    type: 'DELETE',
-    success() {
-      $('#products').DataTable().ajax.reload();
-    },
   });
 };
 
 const editCategory = function editCategory(id) {
+  $('#saveCategory').unbind('click');
+  $('#saveCategory').click(() => {
+    const formData = {
+      name: $('input[name=categoryName]').val(),
+    };
+    $.ajax({
+      type: 'PUT',
+      url: `/category/${id}`,
+      data: formData,
+      dataType: 'json',
+      encode: true,
+      success(data, textStatus, jqXHR) {
+        $('#categoryModal').modal('toggle');
+      },
+      error(jqXHR, textStatus, errorThrown) {
+      },
+    });
+  });
 
+  $.ajax({
+    url: `/category/${id}`,
+    success(result) {
+      $('#categoryName').val(result.name);
+    },
+  });
+
+  $('#categoryModal').modal('toggle');
 };
 
 const deleteCategory = function deleteCategory(id) {
