@@ -1,26 +1,20 @@
 const productModel = require('../model/productModel');
 
-const findAllProducts = (req, res) => {
-  productModel.findAllProducts((result) => {
+const findProducts = (req, res) => {
+  productModel.findProducts(req.query.name, (result) => {
     res.status(200).json(result);
   });
 };
 
-module.exports = function products(app) {
-  app.get('/product', findAllProducts);
-
-  // app.get('/product', (req, res) => {
-  //   const connection = app.infra.connectionFactory();
-  //   const productDAO = new app.infra.ProductDAO(connection);
-  //   productDAO.findAll((error, result) => {
-  //     res.status(200).json(result);
-  //   });
-  //   connection.end();
-  // });
-
-  app.post('/product', (req, res) => {
-    // save product
+const saveProduct = (req, res) => {
+  productModel.saveProduct((result) => {
+    // product saved
   });
+}
+
+module.exports = function products(app) {
+  app.get('/product', findProducts);
+  app.post('/product', saveProduct);
 
   app.get('/product/:id', (request, response) => {
     const connection = app.infra.connectionFactory();
