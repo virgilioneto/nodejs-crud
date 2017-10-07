@@ -13,27 +13,41 @@ $(document).ready(() => {
             name: product.name,
             description: product.description,
             categories: categories.join(', '),
+            editLink: `<input type="button" value="Edit" onclick="editProduct(${product.id})" />`,
+            deleteLink: `<input type="button" value="Delete" onclick="deleteProduct(${product.id})" />`,
           });
         });
         return returnData;
       },
-
     },
     columns: [
       { data: 'name' },
       { data: 'description' },
       { data: 'categories' },
+      { data: 'editLink' },
+      { data: 'deleteLink' },
     ],
   });
-
 
   $('#categories').DataTable({
     ajax: {
       url: '/category',
-      dataSrc: '',
+      dataSrc: (categories) => {
+        const returnData = new Array();
+        categories.forEach((category) => {
+          returnData.push({
+            name: category.name,
+            editLink: `<input type="button" value="Edit" onclick="editCategory(${category.id})" />`,
+            deleteLink: `<input type="button" value="Delete" onclick="deleteCategory(${category.id})" />`,
+          });
+        });
+        return returnData;
+      },
     },
     columns: [
       { data: 'name' },
+      { data: 'editLink' },
+      { data: 'deleteLink' },
     ],
   });
 
@@ -60,6 +74,7 @@ $(document).ready(() => {
       selectedCategories.push($(this).val());
     });
     const formData = {
+      id: $('input[name=productId]').val(),
       name: $('input[name=productName]').val(),
       description: $('textarea[name=productDescription]').val(),
       categories: selectedCategories.join(','),
