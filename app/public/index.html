@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>NodeJS CRUD</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+	<link rel="stylesheet" type="text/css" href="./lib/style/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./lib/style/css/jquery.dataTables.min.css">
+</head>
+<body>
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">NODEJS CRUD</a>
+	    </div>
+	  </div>
+	</nav>
+
+	<div class="container">
+		<div id="productModal" class="modal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Product</h4>
+		      </div>
+		      <div class="modal-body">
+						<form class="form-horizontal">
+						<fieldset>
+						  <legend>Product</legend>
+						  <div class="form-group">
+						    <label for="inputName" class="col-lg-2 control-label">Name</label>
+						    <div class="col-lg-10">
+						      <input type="text" class="form-control" id="inputName" placeholder="Name">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="textAreaDescription" class="col-lg-2 control-label">Description</label>
+						    <div class="col-lg-10">
+						      <textarea class="form-control" rows="3" id="textAreaDescription"></textarea>
+						      <span class="help-block"></span>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label for="select" class="col-lg-2 control-label">Categories</label>
+						    <div class="col-lg-10">
+						      <select multiple="" class="form-control">
+						        <option>1</option>
+						        <option>2</option>
+						        <option>3</option>
+						        <option>4</option>
+						        <option>5</option>
+						      </select>
+						    </div>
+						  </div>
+						</fieldset>
+						</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button id="saveProduct" type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="row">
+			<h1>Products</h1>
+			<br>
+			<button type="button" data-toggle="modal" data-target="#productModal">New product</button>
+			<br>
+			<table id="products" class="display" cellspacing="0" width="100%">
+				<thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+			</table>
+		</div>
+
+		<br><br>
+
+		<div id="categoryModal" class="modal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Modal title</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>One fine body…</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="row">
+			<h1>Categories</h1>
+			<br>
+			<button type="button" data-toggle="modal" data-target="#categoryModal">New category</button>
+			<br>
+			<table id="categories" class="display" cellspacing="0" width="100%">
+				<thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+			</table>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="./lib/js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./lib/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./lib/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="./scripts/index.js"></script>
+</body>
+</html>

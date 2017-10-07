@@ -5,7 +5,7 @@ const findAll = (cb) => {
     sequelize.Category.findAll({
       attributes: ['id', 'name'],
     }).then((categories) => {
-      cb(JSON.parse(JSON.stringify(categories)));
+      cb(categories);
     });
   });
 };
@@ -18,7 +18,7 @@ const findByParam = (name, cb) => {
         name,
       },
     }).then((categories) => {
-      cb(JSON.parse(JSON.stringify(categories)));
+      cb(categories);
     });
   });
 };
@@ -57,7 +57,7 @@ const findById = (id, cb) => {
       },
       attributes: ['id', 'name'],
     }).then((category) => {
-      cb(JSON.parse(JSON.stringify(category)));
+      cb(category);
     });
   });
 };

@@ -3,10 +3,10 @@ const sequelize = require('../infra/sequelize');
 const findAll = (cb) => {
   sequelize.connection.sync().then(() => {
     sequelize.Product.findAll({
-      attributes: ['id', 'name'],
+      attributes: ['id', 'name', 'description'],
       include: [{ model: sequelize.Category, attributes: ['id', 'name'] }],
     }).then((products) => {
-      cb(JSON.parse(JSON.stringify(products)));
+      cb(products);
     });
   });
 };
@@ -19,7 +19,7 @@ const findByParam = (name, cb) => {
         name,
       },
     }).then((products) => {
-      cb(JSON.parse(JSON.stringify(products)));
+      cb(products);
     });
   });
 };
@@ -63,7 +63,7 @@ const findById = (id, cb) => {
       attributes: ['id', 'name'],
       include: [{ model: sequelize.Category, attributes: ['id', 'name'] }],
     }).then((product) => {
-      cb(JSON.parse(JSON.stringify(product)));
+      cb(product);
     });
   });
 };
