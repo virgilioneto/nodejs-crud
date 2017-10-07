@@ -22,9 +22,16 @@ const findCategoryById = (req, res) => {
   });
 };
 
+const deleteCategoryById = (req, res) => {
+  categoryModel.deleteCategoryById(req.params.id, (result) => {
+    res.json(result);
+  });
+};
+
 module.exports = (app) => {
   app.get('/category', findAllCategories);
   app.post('/category', saveCategory);
   app.get('/category/:id', findCategoryById);
   app.post('/category/:id', saveCategory);
+  app.delete('/category/:id', deleteCategoryById);
 };

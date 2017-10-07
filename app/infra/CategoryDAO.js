@@ -49,8 +49,21 @@ const findById = (id, cb) => {
   });
 };
 
+const deleteById = (id, cb) => {
+  sequelize.connection.sync().then(() => {
+    sequelize.Category.destroy({
+      where: {
+        id,
+      },
+    }).then(() => {
+      cb('Category deleted');
+    });
+  });
+};
+
 module.exports = {
   findAll,
   save,
   findById,
+  deleteById,
 };

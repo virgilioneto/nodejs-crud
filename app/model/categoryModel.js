@@ -18,8 +18,15 @@ const findCategoryById = (id, cb) => {
   });
 };
 
+const deleteCategoryById = (id, cb) => {
+  categoryDAO.deleteById(id, (result) => {
+    cb(result);
+  });
+};
+
 module.exports = {
   findAllCategories,
   saveCategory,
   findCategoryById,
+  deleteCategoryById,
 };
