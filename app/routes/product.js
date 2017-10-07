@@ -1,7 +1,7 @@
-const productModel = require('../model/productModel');
+const productService = require('../service/productService');
 
 const findProducts = (req, res) => {
-  productModel.findProducts(req.query.name, (result) => {
+  productService.findProducts(req.query.name, (result) => {
     res.status(200).json(result);
   });
 };
@@ -11,21 +11,22 @@ const saveProduct = (req, res) => {
     id: req.params.id,
     name: req.body.name,
     description: req.body.description,
+
     categories: req.body.categories.split(',').map(Number),
   };
-  productModel.saveProduct(product, (result) => {
+  productService.saveProduct(product, (result) => {
     res.json(result);
   });
 };
 
 const findProductById = (req, res) => {
-  productModel.findProductById(req.params.id, (result) => {
+  productService.findProductById(req.params.id, (result) => {
     res.status(200).json(result);
   });
 };
 
 const deleteProductById = (req, res) => {
-  productModel.deleteProductById(req.params.id, (result) => {
+  productService.deleteProductById(req.params.id, (result) => {
     res.json(result);
   });
 };

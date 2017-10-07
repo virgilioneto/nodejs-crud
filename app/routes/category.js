@@ -1,7 +1,7 @@
-const categoryModel = require('../model/categoryModel');
+const categoryService = require('../service/categoryService');
 
 const findCategories = (req, res) => {
-  categoryModel.findCategories(req.query.name, (result) => {
+  categoryService.findCategories(req.query.name, (result) => {
     res.status(200).json(result);
   });
 };
@@ -11,19 +11,19 @@ const saveCategory = (req, res) => {
     id: req.params.id,
     name: req.body.name,
   };
-  categoryModel.saveCategory(category, (result) => {
+  categoryService.saveCategory(category, (result) => {
     res.json(result);
   });
 };
 
 const findCategoryById = (req, res) => {
-  categoryModel.findCategoryById(req.params.id, (result) => {
+  categoryService.findCategoryById(req.params.id, (result) => {
     res.status(200).json(result);
   });
 };
 
 const deleteCategoryById = (req, res) => {
-  categoryModel.deleteCategoryById(req.params.id, (result) => {
+  categoryService.deleteCategoryById(req.params.id, (result) => {
     res.json(result);
   });
 };
