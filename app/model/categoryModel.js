@@ -1,7 +1,7 @@
 const categoryDAO = require('../infra/CategoryDAO');
 
-const findAllCategories = (cb) => {
-  categoryDAO.findAll((result) => {
+const findCategories = (name, cb) => {
+  categoryDAO.findAll(name, (result) => {
     cb(result);
   });
 };
@@ -25,7 +25,7 @@ const deleteCategoryById = (id, cb) => {
 };
 
 module.exports = {
-  findAllCategories,
+  findCategories,
   saveCategory,
   findCategoryById,
   deleteCategoryById,

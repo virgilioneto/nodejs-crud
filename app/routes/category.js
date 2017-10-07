@@ -1,7 +1,7 @@
 const categoryModel = require('../model/categoryModel');
 
-const findAllCategories = (req, res) => {
-  categoryModel.findAllCategories((result) => {
+const findCategories = (req, res) => {
+  categoryModel.findCategories(req.query.name, (result) => {
     res.status(200).json(result);
   });
 };
@@ -29,7 +29,7 @@ const deleteCategoryById = (req, res) => {
 };
 
 module.exports = (app) => {
-  app.get('/category', findAllCategories);
+  app.get('/category', findCategories);
   app.post('/category', saveCategory);
   app.get('/category/:id', findCategoryById);
   app.post('/category/:id', saveCategory);
