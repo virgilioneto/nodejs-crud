@@ -106,6 +106,18 @@ const newProduct = function newProduct() {
       },
     });
   });
+  $('#categoriesMultipleSelect').html('');
+  $.ajax({
+    url: '/category',
+    success(loadCategories) {
+      loadCategories.forEach((category) => {
+        $('#categoriesMultipleSelect')
+          .append($('<option></option>')
+            .attr('value', category.id)
+            .text(category.name));
+      });
+    },
+  });
 };
 
 const editProduct = function editProduct(id) {
