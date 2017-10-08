@@ -1,4 +1,54 @@
+function loadImage() {
+  let input,
+    file,
+    fr,
+    img;
+
+  if (typeof window.FileReader !== 'function') {
+    write("The file API isn't supported on this browser yet.");
+    return;
+  }
+
+  input = document.getElementById('productImage');
+  if (!input) {
+    write("Um, couldn't find the imgfile element.");
+  } else if (!input.files) {
+    write("This browser doesn't seem to support the `files` property of file inputs.");
+  } else if (!input.files[0]) {
+    write("Please select a file before clicking 'Load'");
+  } else {
+    file = input.files[0];
+    fr = new FileReader();
+    fr.onload = createImage;
+    fr.readAsDataURL(file);
+  }
+
+  function createImage() {
+    img = new Image();
+    img.onload = imageLoaded;
+    img.src = fr.result;
+  }
+
+  function imageLoaded() {
+    const canvas = document.getElementById('productCanvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    //alert(canvas.toDataURL('image/png'));
+  }
+
+  function write(msg) {
+    const p = document.createElement('p');
+    p.innerHTML = msg;
+    document.body.appendChild(p);
+  }
+}
+
+
 $(document).ready(() => {
+  $('#productImage').change(loadImage);
+
   $('#products').DataTable({
     ajax: {
       url: '/product',
@@ -51,19 +101,6 @@ $(document).ready(() => {
     ],
   });
 
-  // $('#productModal').on('shown.bs.modal', () => {
-  //   $.ajax({ url: '/category',
-  //     success(results) {
-  //       results.forEach((result) => {
-  //         $('#categoriesMultipleSelect')
-  //           .append($('<option></option>')
-  //             .attr('value', result.id)
-  //             .text(result.name));
-  //       });
-  //     },
-  //   });
-  // });
-
   $('#productModal').on('hidden.bs.modal', () => {
     $('#categoriesMultipleSelect').html('');
     $('#products').DataTable().ajax.reload();
@@ -81,6 +118,7 @@ $(document).ready(() => {
     $('#categories').DataTable().ajax.reload();
   });
 });
+
 
 const newProduct = function newProduct() {
   $('#saveProduct').unbind('click');
