@@ -5,6 +5,7 @@
 Tasks:
 - [X] Product and category listing and filtering (using DataTables for the layout);
 - [X] Product and category routes for find, create, update, delete and filter by name/id;
+- [X] Authenticated API route for listing products;
 
 Future improvements
 - [ ] Framework for the UI (VueJS, AngularJS);
