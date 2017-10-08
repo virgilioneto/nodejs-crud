@@ -159,7 +159,7 @@ const editProduct = function editProduct(id) {
       $.ajax({ url: '/category',
         success(loadCategories) {
           loadCategories.forEach((category) => {
-            if (categoryArray.indexOf(category.id)) {
+            if (categoryArray.indexOf(category.id) != -1) {
               $('#categoriesMultipleSelect')
                 .append($('<option></option>')
                   .attr('selected', 'selected')
