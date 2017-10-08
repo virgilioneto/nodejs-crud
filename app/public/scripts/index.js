@@ -288,7 +288,7 @@ const editCategory = function editCategory(id) {
     url: `/category/${id}`,
     success(result) {
       $('#categoryName').val(result.name);
-      const canvas = $('categoryCanvas')[0];
+      const canvas = $('#categoryCanvas')[0];
       const ctx = canvas.getContext('2d');
       const image = new Image();
       image.onload = function () {
