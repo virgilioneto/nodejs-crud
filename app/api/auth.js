@@ -1,5 +1,3 @@
-const app = require('../../config/crud-custom')();
-
 const jwt = require('jsonwebtoken');
 
 const sequelize = require('../infra/sequelize');
@@ -48,8 +46,8 @@ const findProducts = (req, res) => {
   });
 };
 
-module.exports = () => {
-  app.post('/api/auth', authenticate);
-  app.use('/api/*', filter);
-  app.get('/api/product', findProducts);
-};
+// module.exports = () => {
+//   app.post('/api/auth', authenticate);
+//   app.use('/api/*', filter);
+//   app.get('/api/product', findProducts);
+// };
