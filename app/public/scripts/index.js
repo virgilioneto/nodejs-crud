@@ -1,7 +1,7 @@
 function loadProductImage() {
   let img;
 
-  const input = document.getElementById('productImage');
+  const input = $('#productImage')[0];
 
   const file = input.files[0];
   const fr = new FileReader();
@@ -15,7 +15,7 @@ function loadProductImage() {
   }
 
   function imageLoaded() {
-    const canvas = document.getElementById('productCanvas');
+    const canvas = $('#productCanvas')[0];
     canvas.width = img.width;
     canvas.height = img.height;
     const ctx = canvas.getContext('2d');
@@ -26,7 +26,7 @@ function loadProductImage() {
 function loadCategoryImage() {
   let img;
 
-  const input = document.getElementById('categoryImage');
+  const input = $('#categoryImage')[0];
 
   const file = input.files[0];
   const fr = new FileReader();
@@ -40,7 +40,7 @@ function loadCategoryImage() {
   }
 
   function imageLoaded() {
-    const canvas = document.getElementById('categoryCanvas');
+    const canvas = $('#categoryCanvas')[0];
     canvas.width = img.width;
     canvas.height = img.height;
     const ctx = canvas.getContext('2d');
@@ -135,7 +135,7 @@ const newProduct = function newProduct() {
       name: $('input[name=productName]').val(),
       description: $('textarea[name=productDescription]').val(),
       categories: selectedCategories.join(','),
-      image: document.getElementById('productCanvas').toDataURL('image/png'),
+      image: $('#productCanvas')[0].toDataURL('image/png'),
     };
     $.ajax({
       type: 'POST',
@@ -173,7 +173,7 @@ const editProduct = function editProduct(id) {
       name: $('input[name=productName]').val(),
       description: $('textarea[name=productDescription]').val(),
       categories: selectedCategories.join(','),
-      image: document.getElementById('productCanvas').toDataURL('image/png'),
+      image: $('#productCanvas')[0].toDataURL('image/png'),
     };
     $.ajax({
       type: 'PUT',
@@ -193,7 +193,7 @@ const editProduct = function editProduct(id) {
       $('#productName').val(result.name);
       $('#productDescription').val(result.description);
 
-      const canvas = document.getElementById('productCanvas');
+      const canvas = $('#productCanvas')[0];
       const ctx = canvas.getContext('2d');
       const image = new Image();
       image.onload = function () {
@@ -246,7 +246,7 @@ const newCategory = function newCategory() {
   $('#saveCategory').click(() => {
     const formData = {
       name: $('input[name=categoryName]').val(),
-      image: document.getElementById('categoryCanvas').toDataURL('image/png'),
+      image: $('#categoryCanvas')[0].toDataURL('image/png'),
     };
     $.ajax({
       type: 'POST',
@@ -268,7 +268,7 @@ const editCategory = function editCategory(id) {
   $('#saveCategory').click(() => {
     const formData = {
       name: $('input[name=categoryName]').val(),
-      image: document.getElementById('categoryCanvas').toDataURL('image/png'),
+      image: $('categoryCanvas')[0].toDataURL('image/png'),
     };
     $.ajax({
       type: 'PUT',
@@ -288,7 +288,7 @@ const editCategory = function editCategory(id) {
     url: `/category/${id}`,
     success(result) {
       $('#categoryName').val(result.name);
-      const canvas = document.getElementById('categoryCanvas');
+      const canvas = $('categoryCanvas')[0];
       const ctx = canvas.getContext('2d');
       const image = new Image();
       image.onload = function () {
