@@ -7,13 +7,15 @@ Tasks:
 - [X] Product and category routes for find, create, update, delete and filter by name/id;
 - [X] Layout for listing and editing products/categories;
 - [X] Authenticated API route for listing products;
-- [X} Product and category image upload.
+- [X] Product and category image upload.
 
 Future improvements
 - [ ] Framework for the UI (VueJS, AngularJS);
 - [ ] Automated testing;
 - [ ] Authenticate all routes;
-- [ ] Create file storage.
+- [ ] Multiple product image upload;
+- [ ] Create file storage;
+- [ ] Use promises instead of callbacks.
 
 ## Setup
 
