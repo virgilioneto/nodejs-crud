@@ -19,7 +19,7 @@ Future improvements
 
 ## Setup
 
-Clone the project, create a MySQL database and change the database configuration file.
+Clone the project, create a MySQL database and change the database configuration file (config/config.json).
 
 ``` bash
 # install dependencies
