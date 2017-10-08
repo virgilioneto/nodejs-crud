@@ -28,6 +28,7 @@ const save = (category, cb) => {
     if (categories) {
       sequelize.Category.update({
         name: category.name,
+        image: category.image,
       }, {
         where: {
           id: category.id,
@@ -38,6 +39,7 @@ const save = (category, cb) => {
     } else {
       sequelize.Category.create({
         name: category.name,
+        image: category.image,
       }).then(() => {
         cb('Category saved');
       });
@@ -50,7 +52,7 @@ const findById = (id, cb) => {
     where: {
       id,
     },
-    attributes: ['id', 'name'],
+    attributes: ['id', 'name', 'image'],
   }).then((category) => {
     cb(category);
   });

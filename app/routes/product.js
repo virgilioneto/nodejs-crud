@@ -11,7 +11,7 @@ const saveProduct = (req, res) => {
     id: req.params.id,
     name: req.body.name,
     description: req.body.description,
-
+    image: req.body.image,
     categories: req.body.categories.split(',').map(Number),
   };
   productService.saveProduct(product, (result) => {

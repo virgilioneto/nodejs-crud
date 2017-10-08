@@ -10,6 +10,7 @@ const saveCategory = (req, res) => {
   const category = {
     id: req.params.id,
     name: req.body.name,
+    image: req.body.image,
   };
   categoryService.saveCategory(category, (result) => {
     res.json(result);

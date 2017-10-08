@@ -13,11 +13,12 @@ const connection = new Sequelize(
 const Product = connection.define('Product', {
   name: Sequelize.STRING,
   description: Sequelize.STRING,
-  image: Sequelize.TEXT,
+  image: Sequelize.TEXT('long'),
 });
 
 const Category = connection.define('Category', {
   name: Sequelize.STRING,
+  image: Sequelize.TEXT('long'),
 });
 
 Product.belongsToMany(Category, { through: 'ProductCategory' });

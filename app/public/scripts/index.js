@@ -1,27 +1,12 @@
-function loadImage() {
-  let input,
-    file,
-    fr,
-    img;
+function loadProductImage() {
+  let img;
 
-  if (typeof window.FileReader !== 'function') {
-    write("The file API isn't supported on this browser yet.");
-    return;
-  }
+  const input = document.getElementById('productImage');
 
-  input = document.getElementById('productImage');
-  if (!input) {
-    write("Um, couldn't find the imgfile element.");
-  } else if (!input.files) {
-    write("This browser doesn't seem to support the `files` property of file inputs.");
-  } else if (!input.files[0]) {
-    write("Please select a file before clicking 'Load'");
-  } else {
-    file = input.files[0];
-    fr = new FileReader();
-    fr.onload = createImage;
-    fr.readAsDataURL(file);
-  }
+  const file = input.files[0];
+  const fr = new FileReader();
+  fr.onload = createImage;
+  fr.readAsDataURL(file);
 
   function createImage() {
     img = new Image();
@@ -35,19 +20,37 @@ function loadImage() {
     canvas.height = img.height;
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0);
-    //alert(canvas.toDataURL('image/png'));
-  }
-
-  function write(msg) {
-    const p = document.createElement('p');
-    p.innerHTML = msg;
-    document.body.appendChild(p);
   }
 }
 
+function loadCategoryImage() {
+  let img;
+
+  const input = document.getElementById('categoryImage');
+
+  const file = input.files[0];
+  const fr = new FileReader();
+  fr.onload = createImage;
+  fr.readAsDataURL(file);
+
+  function createImage() {
+    img = new Image();
+    img.onload = imageLoaded;
+    img.src = fr.result;
+  }
+
+  function imageLoaded() {
+    const canvas = document.getElementById('categoryCanvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+  }
+}
 
 $(document).ready(() => {
-  $('#productImage').change(loadImage);
+  $('#productImage').change(loadProductImage);
+  $('#categoryImage').change(loadCategoryImage);
 
   $('#products').DataTable({
     ajax: {
@@ -102,19 +105,20 @@ $(document).ready(() => {
   });
 
   $('#productModal').on('hidden.bs.modal', () => {
-    $('#categoriesMultipleSelect').html('');
-    $('#products').DataTable().ajax.reload();
-  });
-
-  $('#productModal').on('hidden.bs.modal', () => {
     $('#productName').val('');
     $('#productDescription').val('');
     $('#categoriesMultipleSelect').html('');
+    $('.product-image').html('<input id="productImage" type="file" />');
+    $('.product-canvas').html('<canvas id="productCanvas" width="200" height="200" style="border:1px solid #000000;"></canvas>');
+    $('#productImage').change(loadProductImage);
     $('#products').DataTable().ajax.reload();
   });
 
   $('#categoryModal').on('hidden.bs.modal', () => {
     $('#categoryName').val('');
+    $('.category-image').html('<input id="categoryImage" type="file" />');
+    $('.category-canvas').html('<canvas id="categoryCanvas" width="200" height="200" style="border:1px solid #000000;"></canvas>');
+    $('#categoryImage').change(loadCategoryImage);
     $('#categories').DataTable().ajax.reload();
   });
 });
@@ -128,10 +132,10 @@ const newProduct = function newProduct() {
       selectedCategories.push($(this).val());
     });
     const formData = {
-      // id: $('input[name=productId]').val(),
       name: $('input[name=productName]').val(),
       description: $('textarea[name=productDescription]').val(),
       categories: selectedCategories.join(','),
+      image: document.getElementById('productCanvas').toDataURL('image/png'),
     };
     $.ajax({
       type: 'POST',
@@ -169,6 +173,7 @@ const editProduct = function editProduct(id) {
       name: $('input[name=productName]').val(),
       description: $('textarea[name=productDescription]').val(),
       categories: selectedCategories.join(','),
+      image: document.getElementById('productCanvas').toDataURL('image/png'),
     };
     $.ajax({
       type: 'PUT',
@@ -187,6 +192,14 @@ const editProduct = function editProduct(id) {
     success(result) {
       $('#productName').val(result.name);
       $('#productDescription').val(result.description);
+
+      const canvas = document.getElementById('productCanvas');
+      const ctx = canvas.getContext('2d');
+      const image = new Image();
+      image.onload = function () {
+        ctx.drawImage(image, 0, 0);
+      };
+      image.src = result.image;
 
       const categoryArray = new Array();
       result.Categories.forEach((category) => {
@@ -233,6 +246,7 @@ const newCategory = function newCategory() {
   $('#saveCategory').click(() => {
     const formData = {
       name: $('input[name=categoryName]').val(),
+      image: document.getElementById('categoryCanvas').toDataURL('image/png'),
     };
     $.ajax({
       type: 'POST',
@@ -254,6 +268,7 @@ const editCategory = function editCategory(id) {
   $('#saveCategory').click(() => {
     const formData = {
       name: $('input[name=categoryName]').val(),
+      image: document.getElementById('categoryCanvas').toDataURL('image/png'),
     };
     $.ajax({
       type: 'PUT',
@@ -273,6 +288,13 @@ const editCategory = function editCategory(id) {
     url: `/category/${id}`,
     success(result) {
       $('#categoryName').val(result.name);
+      const canvas = document.getElementById('categoryCanvas');
+      const ctx = canvas.getContext('2d');
+      const image = new Image();
+      image.onload = function () {
+        ctx.drawImage(image, 0, 0);
+      };
+      image.src = result.image;
     },
   });
 

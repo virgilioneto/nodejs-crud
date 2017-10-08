@@ -30,6 +30,7 @@ const save = (product, cb) => {
       sequelize.Product.update({
         name: product.name,
         description: product.description,
+        image: product.image,
       }, {
         where: {
           id: product.id,
@@ -42,6 +43,7 @@ const save = (product, cb) => {
       sequelize.Product.create({
         name: product.name,
         description: product.description,
+        image: product.image,
       }).then((savedProduct) => {
         savedProduct.setCategories(product.categories);
         cb('Product saved');
@@ -55,7 +57,7 @@ const findById = (id, cb) => {
     where: {
       id,
     },
-    attributes: ['id', 'name', 'description'],
+    attributes: ['id', 'name', 'description', 'image'],
     include: [{ model: sequelize.Category, attributes: ['id', 'name'] }],
   }).then((product) => {
     cb(product);
