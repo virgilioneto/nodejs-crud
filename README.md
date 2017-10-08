@@ -10,7 +10,7 @@ Tasks:
 Future improvements
 - [ ] Framework for the UI (VueJS, AngularJS);
 - [ ] Automated testing;
-- [ ] Authenticate all routes (JWT);
+- [ ] Authenticate all routes;
 
 ## Setup
 

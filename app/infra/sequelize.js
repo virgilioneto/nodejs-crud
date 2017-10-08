@@ -22,6 +22,21 @@ const User = connection.define('User', {
   password: Sequelize.STRING,
 });
 
+connection.sync().then(() => {
+  User.findOne({
+    where: {
+      username: 'adm',
+    },
+  }).then((user) => {
+    if (!user) {
+      User.create({
+        username: 'adm',
+        password: 'adm',
+      });
+    }
+  });
+});
+
 module.exports = {
   connection,
   Product,

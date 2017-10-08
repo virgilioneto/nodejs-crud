@@ -1,25 +1,21 @@
 const sequelize = require('../infra/sequelize');
 
 const findAll = (cb) => {
-  sequelize.connection.sync().then(() => {
-    sequelize.Category.findAll({
-      attributes: ['id', 'name'],
-    }).then((categories) => {
-      cb(categories);
-    });
+  sequelize.Category.findAll({
+    attributes: ['id', 'name'],
+  }).then((categories) => {
+    cb(categories);
   });
 };
 
 const findByParam = (name, cb) => {
-  sequelize.connection.sync().then(() => {
-    sequelize.Category.findAll({
-      attributes: ['id', 'name'],
-      where: {
-        name,
-      },
-    }).then((categories) => {
-      cb(categories);
-    });
+  sequelize.Category.findAll({
+    attributes: ['id', 'name'],
+    where: {
+      name,
+    },
+  }).then((categories) => {
+    cb(categories);
   });
 };
 
@@ -30,7 +26,7 @@ const save = (category, cb) => {
     },
   }).then((categories) => {
     if (categories) {
-      sequelize.connection.sync().then(() => sequelize.Category.update({
+      sequelize.Category.update({
         name: category.name,
       }, {
         where: {
@@ -38,39 +34,35 @@ const save = (category, cb) => {
         },
       }).then(() => {
         cb('Category updated');
-      }));
+      });
     } else {
-      sequelize.connection.sync().then(() => sequelize.Category.create({
+      sequelize.Category.create({
         name: category.name,
       }).then(() => {
         cb('Category saved');
-      }));
+      });
     }
   });
 };
 
 const findById = (id, cb) => {
-  sequelize.connection.sync().then(() => {
-    sequelize.Category.findOne({
-      where: {
-        id,
-      },
-      attributes: ['id', 'name'],
-    }).then((category) => {
-      cb(category);
-    });
+  sequelize.Category.findOne({
+    where: {
+      id,
+    },
+    attributes: ['id', 'name'],
+  }).then((category) => {
+    cb(category);
   });
 };
 
 const deleteById = (id, cb) => {
-  sequelize.connection.sync().then(() => {
-    sequelize.Category.destroy({
-      where: {
-        id,
-      },
-    }).then(() => {
-      cb('Category deleted');
-    });
+  sequelize.Category.destroy({
+    where: {
+      id,
+    },
+  }).then(() => {
+    cb('Category deleted');
   });
 };
 
