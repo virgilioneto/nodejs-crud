@@ -15,6 +15,7 @@ Future improvements
 - [ ] Authenticate all routes;
 - [ ] Multiple product image upload;
 - [ ] Create file storage;
+- [ ] Use express Router instead of Consign;
 - [ ] Use promises instead of callbacks.
 
 ## Setup
