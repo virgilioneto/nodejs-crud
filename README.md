@@ -7,8 +7,8 @@ Tasks:
 - [X] Product and category routes for find, create, update, delete and filter by name/id;
 
 Future Improvements
-- [] Framework for the UI (VueJS, AngularJS);
-- [] Automated testing;
-- [] Authenticate all routes (JWT);
+- [ ] Framework for the UI (VueJS, AngularJS);
+- [ ] Automated testing;
+- [ ] Authenticate all routes (JWT);
 
 ## Setup
