@@ -2,7 +2,7 @@
   "db": {
     "name": "nodejs_crud_db",
     "user": "root",
-    "pass": "iamroot",
+    "pass": "",
     "host": "localhost",
     "dialect": "mysql"
   },
