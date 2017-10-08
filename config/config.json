@@ -1,0 +1,13 @@
+{
+  "db": {
+    "name": "nodejs_crud_db",
+    "user": "root",
+    "pass": "iamroot",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "jwt": {
+    "secret": "atsecret",
+    "expiresIn": 86400
+  }
+}

@@ -4,7 +4,7 @@ const sequelize = require('../infra/sequelize');
 
 const productService = require('../service/productService');
 
-// const userDAO = require('../../infra/UserDAO');
+const config = require('../../config/config');
 
 const authenticate = (req, res) => {
   sequelize.User.findOne({
@@ -13,10 +13,9 @@ const authenticate = (req, res) => {
       password: req.body.password,
     },
   }).then((result) => {
-    console.log(result);
     if (result) {
       const token = jwt.sign({ login: req.body.username }, 'atsecret', {
-        expiresIn: 86400,
+        expiresIn: config.jwt.expiresIn,
       });
       res.set('x-access-token', token);
       res.send('ok');
@@ -29,7 +28,7 @@ const authenticate = (req, res) => {
 const filter = (req, res, next) => {
   const token = req.headers['x-access-token'];
   if (token) {
-    jwt.verify(token, 'atsecret', (error, decoded) => {
+    jwt.verify(token, config.jwt.secret, (error, decoded) => {
       if (error) {
         return res.sendStatus(401);
       }

@@ -1,13 +1,19 @@
 const Sequelize = require('sequelize');
+const config = require('../../config/config');
 
-const connection = new Sequelize('nodejs_crud_db', 'root', 'iamroot', {
-  host: 'localhost',
-  dialect: 'mysql',
-});
+const connection = new Sequelize(
+  config.db.name,
+  config.db.user,
+  config.db.pass, {
+    host: config.db.host,
+    dialect: config.db.dialect,
+  },
+);
 
 const Product = connection.define('Product', {
   name: Sequelize.STRING,
   description: Sequelize.STRING,
+  image: Sequelize.TEXT,
 });
 
 const Category = connection.define('Category', {
