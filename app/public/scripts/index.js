@@ -268,7 +268,7 @@ const editCategory = function editCategory(id) {
   $('#saveCategory').click(() => {
     const formData = {
       name: $('input[name=categoryName]').val(),
-      image: $('categoryCanvas')[0].toDataURL('image/png'),
+      image: $('#categoryCanvas')[0].toDataURL('image/png'),
     };
     $.ajax({
       type: 'PUT',
